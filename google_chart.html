@@ -1,0 +1,45 @@
+<html>
+    <head>
+    </head>
+    <body>
+      <h1>HELLO</h1>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript">
+        google.charts.load("current", {packages:['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+
+          data2 = [['Time', 'Temp'],[1456099200,7.4],[1456102800,7.7],[1456106400,8.6],[1456110000,8.6],[1456113600,9.4]]
+
+          var data = google.visualization.arrayToDataTable(
+            data2
+          );
+
+          var options = {
+            title: "Darestan Monitoring",
+            legend: 'none',
+            hAxis: {
+              ticks: [{v: 1456099200, f: '1'},{v: 1456102800, f: '2'},{v: 1456106400, f: '3'},{v: 1456110000,f: '4'},{v: 1456113600, f: '5'}]
+            },
+            annotations: {
+              style: 'line'
+            }
+          };
+
+          var chart_div = document.getElementById('chart_div');
+          var chart = new google.visualization.LineChart(chart_div);
+          // Wait for the chart to finish drawing before calling the getImageURI() method.
+          google.visualization.events.addListener(chart, 'ready', function () {
+            var image_tag = '<img src="' + chart.getImageURI() + '">';
+            chart_div.innerHTML = image_tag;
+            console.log(chart_div.innerHTML);
+
+          });
+          chart.draw(data, options);
+        }
+      </script>
+
+    <div id='chart_div'></div>
+    </body>
+</html>
